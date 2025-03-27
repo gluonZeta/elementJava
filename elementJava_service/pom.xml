@@ -17,6 +17,11 @@
   </properties>
 
   <dependencies>
+    <dependency>
+      <artifactId>elementJava_data</artifactId>
+      <groupId>gluon.projects</groupId>
+      <version>1.0-SNAPSHOT</version>
+    </dependency>
   </dependencies>
 
 </project>

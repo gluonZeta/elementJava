@@ -17,6 +17,13 @@
   </properties>
 
   <dependencies>
+
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <scope>provided</scope>
+    </dependency>
+
     <dependency>
       <artifactId>elementJava_data</artifactId>
       <groupId>gluon.projects</groupId>

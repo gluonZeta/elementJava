@@ -17,6 +17,7 @@ public class Main {
 
         JacocoCoverageAnalyseServiceLayer jacocoCoverageAnalyseServiceLayer = new JacocoCoverageAnalyseServiceLayer();
         logger.info("Résultat = " + jacocoCoverageAnalyseServiceLayer.soustraction(67,34));
+        System.out.println("TEST sonar");
 
     }
 

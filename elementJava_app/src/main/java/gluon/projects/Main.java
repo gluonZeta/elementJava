@@ -14,6 +14,10 @@ public class Main {
         logger.warn("Ceci est un log WARN");
         logger.error("Ceci est un log ERROR");
         logger.fatal("Ceci est un log FATAL");
+
+        JacocoCoverageAnalyseServiceLayer jacocoCoverageAnalyseServiceLayer = new JacocoCoverageAnalyseServiceLayer();
+        logger.info("Résultat = " + jacocoCoverageAnalyseServiceLayer.soustraction(67,34));
+
     }
 
 }

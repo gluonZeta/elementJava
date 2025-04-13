@@ -93,6 +93,11 @@
             <goals>
               <goal>report</goal>
             </goals>
+            <configuration>
+              <excludes>
+                <exclude>**/Main*.class</exclude>
+              </excludes>
+            </configuration>
           </execution>
         </executions>
       </plugin>

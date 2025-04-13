@@ -88,13 +88,12 @@
             </goals>
           </execution>
           <execution>
-            <id>report-aggregate</id>
-            <phase>verify</phase>
+            <id>jacoco-site</id>
+            <phase>package</phase>
             <goals>
-              <goal>report-aggregate</goal>
+              <goal>report</goal>
             </goals>
             <configuration>
-              <outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate</outputDirectory>
               <excludes>
                 <exclude>**/Main*.class</exclude>
               </excludes>

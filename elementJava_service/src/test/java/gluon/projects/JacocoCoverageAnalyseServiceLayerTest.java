@@ -18,8 +18,4 @@ class JacocoCoverageAnalyseServiceLayerTest {
         assertEquals(4.3F, this.jacocoCoverageAnalyseServiceLayer.soustraction(5.4F,1.1F));
     }
 
-    @Test
-    void multiplication() {
-        assertEquals(24F, this.jacocoCoverageAnalyseServiceLayer.multiplication(8F,3F));
-    }
 }

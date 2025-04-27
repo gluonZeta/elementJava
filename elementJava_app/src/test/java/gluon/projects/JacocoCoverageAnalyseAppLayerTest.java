@@ -18,4 +18,9 @@ class JacocoCoverageAnalyseAppLayerTest {
         assertEquals(5, this.jacocoCoverageAnalyseAppLayer.soustractionX(8,3));
     }
 
+    @Test
+    void additionX() {
+        assertEquals(75, this.jacocoCoverageAnalyseAppLayer.additionX(45, 30));
+    }
+
 }

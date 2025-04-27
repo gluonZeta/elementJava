@@ -84,15 +84,10 @@
             <goals>
               <goal>prepare-agent</goal>
             </goals>
-            <configuration>
-              <excludes>
-                <exclude>**/Main*.class</exclude>
-              </excludes>
-            </configuration>
           </execution>
           <execution>
-            <id>jacoco-report</id>
-            <phase>prepare-package</phase>
+            <id>jacoco-site</id>
+            <phase>package</phase>
             <goals>
               <goal>report</goal>
             </goals>

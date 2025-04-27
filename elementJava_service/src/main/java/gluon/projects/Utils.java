@@ -1,5 +1,7 @@
 package gluon.projects;
 
+import gluon.projects.exceptions.ElementProjectException;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;

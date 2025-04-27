@@ -6,13 +6,16 @@ import java.util.Properties;
 
 public class Utils {
 
-    public static Properties getPropertiesByFileName(String propertiesFileName) {
+    private Utils() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    public static Properties getPropertiesByFileName(String fileName) {
         Properties properties = new Properties();
-        try(InputStream inputStream = Utils.class.getClassLoader().getResourceAsStream(propertiesFileName)) {
+        try(InputStream inputStream = Utils.class.getClassLoader().getResourceAsStream(fileName)) {
             properties.load(inputStream);
         } catch (IOException e) {
-            e.printStackTrace();
-            Thread.currentThread().interrupt();
+            throw new ElementProjectException(e);
         }
         return properties;
     }

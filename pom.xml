@@ -86,11 +86,16 @@
             </goals>
           </execution>
           <execution>
-            <id>jacoco-site</id>
-            <phase>package</phase>
+            <id>jacoco-report</id>
+            <phase>prepare-package</phase>
             <goals>
               <goal>report</goal>
             </goals>
+            <configuration>
+              <excludes>
+                <exclude>**/Main*.class</exclude>
+              </excludes>
+            </configuration>
           </execution>
         </executions>
       </plugin>

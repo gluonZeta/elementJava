@@ -17,4 +17,9 @@ class JacocoCoverageAnalyseDataLayerTest {
     void additionZ() {
         assertEquals(3.5F, this.jacocoCoverageAnalyseDataLayer.additionZ(2.1F, 1.4F));
     }
+
+    @Test
+    void divisionZ() {
+        assertEquals(4, this.jacocoCoverageAnalyseDataLayer.divisionZ(12F, 3F));
+    }
 }

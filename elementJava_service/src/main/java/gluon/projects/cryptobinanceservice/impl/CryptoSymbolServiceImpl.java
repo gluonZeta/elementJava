@@ -50,6 +50,7 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
     @Override
     public List<String> getNewListSymbol() {
+        this.createListSymbolFile();
         List<String> symbolList = new ArrayList<>();
         String interval = "1M";
 

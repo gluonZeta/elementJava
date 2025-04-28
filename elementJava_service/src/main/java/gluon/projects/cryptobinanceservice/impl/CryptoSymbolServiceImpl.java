@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
@@ -24,6 +25,27 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         Properties properties = Utils.getPropertiesByFileName("application.properties");
         this.apiBinanceUrl = properties.getProperty("apibinanceurl");
         this.listSymbolFile = properties.getProperty("listsymbolfile");
+    }
+
+    private void createListSymbolFile() {
+        File file = new File(this.listSymbolFile);
+        if (file.exists()) {
+            if (file.delete()) {
+                System.out.println("Fichier existant supprimé : " + listSymbolFile);
+            } else {
+                System.out.println("Échec de la suppression du fichier existant.");
+            }
+        }
+
+        try {
+            if (file.createNewFile()) {
+                System.out.println("Fichier vide créé : " + listSymbolFile);
+            } else {
+                System.out.println("Le fichier n'a pas pu être créé.");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

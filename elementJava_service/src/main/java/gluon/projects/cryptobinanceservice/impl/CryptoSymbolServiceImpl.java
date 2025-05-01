@@ -30,31 +30,6 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         this.listSymbolFile = properties.getProperty("listsymbolfile");
     }
 
-    private void createFileContainListSymbol() {
-        File file = new File(this.listSymbolFile);
-        if (file.exists()) {
-            this.cleanUp(file.getPath());
-        }
-
-        try {
-            if (file.createNewFile()) {
-                logger.info("Fichier vide créé : {}", listSymbolFile);
-            } else {
-                logger.info("Le fichier n'a pas pu être créé.");
-            }
-        } catch (IOException e) {
-            throw new ElementProjectException(e);
-        }
-    }
-
-    public void cleanUp(String filePath) {
-        try {
-            Files.delete(Path.of(filePath));
-        } catch (IOException e) {
-            throw new ElementProjectException(e);
-        }
-    }
-
     @Override
     public List<String> getNewListSymbol() {
         this.createFileContainListSymbol();
@@ -150,13 +125,12 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
     private boolean filterStringSymbol(String symbol) {
         boolean allow = false;
-        if(
-                symbol.endsWith("USDT")
-                        && !symbol.startsWith("USDT")
-                        && !symbol.contains("DOWN")
-                        && !symbol.contains("BULL")
-                        && !symbol.contains("BEAR")
-                        && symbol.length() >= 6
+        if(symbol.endsWith("USDT")
+                && !symbol.startsWith("USDT")
+                && !symbol.contains("DOWN")
+                && !symbol.contains("BULL")
+                && !symbol.contains("BEAR")
+                && symbol.length() >= 6
         ) {
             allow = true;
         }
@@ -165,16 +139,34 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
     private List<String> excludedSymbol() {
         List<String> symbolExclus = new ArrayList<>();
-        //symbolExclus.add("BTCUSDT");
-        //symbolExclus.add("ETHUSDT");
-        //symbolExclus.add("BNBUSDT");
         symbolExclus.add("USDCUSDT");
-        //symbolExclus.add("SOLUSDT");
         symbolExclus.add("TUSDUSDT");
         symbolExclus.add("FDUSDUSDT");
-        //symbolExclus.add("XRPUSDT");
-        //symbolExclus.add("RUNEUSDT");
-        //symbolExclus.add("DOGEUSDT");
         return symbolExclus;
+    }
+
+    private void createFileContainListSymbol() {
+        File file = new File(this.listSymbolFile);
+        if (file.exists()) {
+            this.cleanUp(file.getPath());
+        }
+
+        try {
+            if (file.createNewFile()) {
+                logger.info("Fichier vide créé : {}", listSymbolFile);
+            } else {
+                logger.info("Le fichier n'a pas pu être créé.");
+            }
+        } catch (IOException e) {
+            throw new ElementProjectException(e);
+        }
+    }
+
+    public void cleanUp(String filePath) {
+        try {
+            Files.delete(Path.of(filePath));
+        } catch (IOException e) {
+            throw new ElementProjectException(e);
+        }
     }
 }

@@ -63,7 +63,7 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
             symbolHistoricalData = Utils.sendRequestWithCompleteUrl(url);
             symbolHistoriqueArray = new JSONArray(symbolHistoricalData);
 
-            if(symbolHistoriqueArray.length() == numberOfMonth) {
+            if(symbolHistoriqueArray.length() >= (numberOfMonth-1)) {
                 dataElement = (JSONArray) symbolHistoriqueArray.get(symbolHistoriqueArray.length()-1);
                 allowedPrice = Float.parseFloat((String) dataElement.get(4));
 

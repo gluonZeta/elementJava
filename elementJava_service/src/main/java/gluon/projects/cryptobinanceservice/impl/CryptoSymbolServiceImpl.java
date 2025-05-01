@@ -36,7 +36,7 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         List<String> symbolList = new ArrayList<>();
         String interval = "1M";
 
-        int yearLimit = 2;
+        int yearLimit = 1;
         int numberOfMonth = yearLimit * 12;
         float priceThreshold = 0.05f;
 
@@ -50,7 +50,6 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         String symbolHistorique;
         JSONArray symbolHistoriqueArray;
         for(String symbol: this.getBinanceApiSymbolList()) {
-            logger.info(symbol);
             url = String.format("%s/klines?symbol=%s&interval=%s&startTime=%d&endTime=%d",
                     this.apiBinanceUrl, symbol, interval, startTime, endTime);
             symbolHistorique = Utils.sendRequestWithCompleteUrl(url);

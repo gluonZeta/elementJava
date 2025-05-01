@@ -28,6 +28,7 @@ public class Main {
         int randomInt = rand.nextInt(symbols.size());
         for(String symbol: symbols) {
             if(symbol.equals(symbols.get(randomInt))) {
+                logger.info("---- {} ----", symbol);
                 binanceWebsocketServices.add(new BinanceWebsocketServiceImpl(symbol));
                 binanceWebsocketServices.get(binanceWebsocketServices.size()-1).launchExchangeData();
             }

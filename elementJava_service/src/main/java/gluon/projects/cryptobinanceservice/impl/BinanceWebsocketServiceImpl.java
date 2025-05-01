@@ -24,7 +24,7 @@ public class BinanceWebsocketServiceImpl implements BinanceWebsocketService {
     @Override
     public void launchExchangeData() {
         String urlWebsocketExchange = this.createUrlWebsocketExchange();
-        BinanceDataProcessService orderFlowDataProcessService = new OrderFlowDataProcessServiceImpl();
+        BinanceDataProcessService orderFlowDataProcessService = new OrderFlowDataProcessServiceImpl(this.symbol);
         try {
             WebSocketExchange webSocketExchange = new WebSocketExchange(new URI(urlWebsocketExchange));
             webSocketExchange.setOrderFlowDataProcessServic(orderFlowDataProcessService);

@@ -11,8 +11,7 @@ public class OrderFlowDataProcessServiceImpl implements BinanceDataProcessServic
     private Logger logger = LoggerFactory.getLogger(OrderFlowDataProcessServiceImpl.class);
 
     @Override
-    public void process(JSONObject exchangeResponseData) {
-        JSONObject tradeDataValues = (JSONObject) exchangeResponseData.get("data");
+    public void process(JSONObject tradeDataValues) {
         OrderFlowData orderFlowData = new OrderFlowData();
         orderFlowData.fillOrderFlowData(tradeDataValues);
         logger.info(orderFlowData.toString());

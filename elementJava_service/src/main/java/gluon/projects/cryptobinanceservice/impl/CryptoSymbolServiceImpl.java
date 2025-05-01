@@ -8,10 +8,7 @@ import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -97,7 +94,16 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
     @Override
     public List<String> getExistListSymbol() {
-        return List.of();
+        List<String> symbolList = new ArrayList<>();
+        String symbol;
+        try(BufferedReader br = new BufferedReader(new FileReader(this.listSymbolFile))) {
+            while ((symbol = br.readLine()) != null) {
+                symbolList.add(symbol);
+            }
+        } catch (IOException e) {
+            throw new ElementProjectException(e);
+        }
+        return symbolList;
     }
 
     private List<String> getBinanceApiSymbolList() {

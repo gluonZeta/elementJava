@@ -14,7 +14,7 @@ public class Main {
     public static void main(String[] args) {
 
         CryptoSymbolService cryptoSymbolService = new CryptoSymbolServiceImpl();
-        List<String> symbols = cryptoSymbolService.getNewListSymbol();
+        List<String> symbols = cryptoSymbolService.getExistListSymbol();
         symbols.forEach((String symbol) -> logger.info("----- {}", symbol));
     }
 

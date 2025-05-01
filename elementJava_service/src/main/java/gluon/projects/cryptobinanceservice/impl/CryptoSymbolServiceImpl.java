@@ -54,17 +54,16 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         String url;
         String symbolHistoricalData;
         JSONArray symbolHistoriqueArray;
+        JSONArray dataElement;
+        float allowedPrice;
+
         for(String symbol: this.getBinanceApiSymbolList()) {
             url = String.format("%s%s",
                     this.apiBinanceUrl, this.urlCompletion(symbol, yearLimit));
             symbolHistoricalData = Utils.sendRequestWithCompleteUrl(url);
             symbolHistoriqueArray = new JSONArray(symbolHistoricalData);
 
-            JSONArray dataElement;
-            float allowedPrice;
-
             if(symbolHistoriqueArray.length() == numberOfMonth) {
-
                 dataElement = (JSONArray) symbolHistoriqueArray.get(symbolHistoriqueArray.length()-1);
                 allowedPrice = Float.parseFloat((String) dataElement.get(4));
 
@@ -89,9 +88,10 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
                 }
 
+            } else {
+                logger.info("----------------- {}", symbol);
             }
         }
-
         return symbolList;
     }
 

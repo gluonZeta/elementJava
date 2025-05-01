@@ -12,6 +12,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.*;
 
 public class CryptoSymbolServiceImpl implements CryptoSymbolService {
@@ -28,22 +30,26 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         this.listSymbolFile = properties.getProperty("listsymbolfile");
     }
 
-    private void createListSymbolFile() {
+    private void createFileContainListSymbol() {
         File file = new File(this.listSymbolFile);
         if (file.exists()) {
-            if (file.delete()) {
-                logger.info("Fichier existant supprimé : " + listSymbolFile);
-            } else {
-                logger.info("Échec de la suppression du fichier existant.");
-            }
+            this.cleanUp(file.getPath());
         }
 
         try {
             if (file.createNewFile()) {
-                System.out.println("Fichier vide créé : " + listSymbolFile);
+                logger.info("Fichier vide créé : {}", listSymbolFile);
             } else {
-                System.out.println("Le fichier n'a pas pu être créé.");
+                logger.info("Le fichier n'a pas pu être créé.");
             }
+        } catch (IOException e) {
+            throw new ElementProjectException(e);
+        }
+    }
+
+    public void cleanUp(String filePath) {
+        try {
+            Files.delete(Path.of(filePath));
         } catch (IOException e) {
             throw new ElementProjectException(e);
         }
@@ -51,7 +57,7 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
     @Override
     public List<String> getNewListSymbol() {
-        this.createListSymbolFile();
+        this.createFileContainListSymbol();
         List<String> symbolList = new ArrayList<>();
         String interval = "1M";
 
@@ -84,7 +90,7 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
                 if(allowedPrice > priceThreshold) {
                     symbolList.add(symbol);
-                    System.out.println(symbol + " -- " + allowedPrice);
+                    logger.info("{} -- {}", symbol, allowedPrice);
 
                     FileWriter writer = null;
                     try {

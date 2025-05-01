@@ -88,7 +88,6 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
                 if(closePrice > priceThreshold) {
                     symbolList.add(symbol);
-                    logger.info("{} -- {}", symbol, closePrice);
                     this.writeSymbolInFile(symbol);
                 }
             }

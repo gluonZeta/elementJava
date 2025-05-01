@@ -85,11 +85,7 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
                     } catch (IOException e) {
                         throw new ElementProjectException(e);
                     }
-
                 }
-
-            } else {
-                logger.info("----------------- {}", symbol);
             }
         }
         return symbolList;

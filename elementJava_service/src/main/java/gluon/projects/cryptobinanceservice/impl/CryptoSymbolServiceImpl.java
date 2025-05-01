@@ -2,6 +2,7 @@ package gluon.projects.cryptobinanceservice.impl;
 
 import gluon.projects.Utils;
 import gluon.projects.cryptobinanceservice.CryptoSymbolService;
+import gluon.projects.exceptions.ElementProjectException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -31,9 +32,9 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         File file = new File(this.listSymbolFile);
         if (file.exists()) {
             if (file.delete()) {
-                System.out.println("Fichier existant supprimé : " + listSymbolFile);
+                logger.info("Fichier existant supprimé : " + listSymbolFile);
             } else {
-                System.out.println("Échec de la suppression du fichier existant.");
+                logger.info("Échec de la suppression du fichier existant.");
             }
         }
 
@@ -44,7 +45,7 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
                 System.out.println("Le fichier n'a pas pu être créé.");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new ElementProjectException(e);
         }
     }
 
@@ -84,15 +85,22 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
                 if(allowedPrice > priceThreshold) {
                     symbolList.add(symbol);
                     System.out.println(symbol + " -- " + allowedPrice);
+
+                    FileWriter writer = null;
                     try {
-                        FileWriter writer = new FileWriter(this.listSymbolFile, true);
-                        BufferedWriter buffer = new BufferedWriter(writer);
+                        writer = new FileWriter(this.listSymbolFile, true);
+                    } catch (IOException e) {
+                        throw new ElementProjectException(e);
+                    }
+                    BufferedWriter buffer = new BufferedWriter(writer);
+                    try {
                         buffer.write(symbol);
                         buffer.newLine();
                         buffer.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        throw new ElementProjectException(e);
                     }
+
                 }
 
             }

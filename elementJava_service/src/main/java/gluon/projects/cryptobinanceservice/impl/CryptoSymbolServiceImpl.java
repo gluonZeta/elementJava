@@ -100,22 +100,20 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         JSONObject symbolInfo;
         String symbol;
         boolean isMarginTradingAllowed = false;
-        List<String> symbolExclus = this.excludedSymbol();
+        List<String> symbolExcludes = this.excludedSymbol();
         String urlExchangeInfo = String.format("%s%s", this.apiBinanceUrl,"/exchangeInfo");
 
-        String exchangeInformations = Utils.sendRequestWithCompleteUrl(urlExchangeInfo);
-        JSONObject jsonObject = new JSONObject(exchangeInformations);
+        String exchangeInformationResponse = Utils.sendRequestWithCompleteUrl(urlExchangeInfo);
+        JSONObject jsonObject = new JSONObject(exchangeInformationResponse);
         JSONArray symbols = (JSONArray) jsonObject.get("symbols");
 
         for(int i = 0; i < symbols.length(); i++) {
             symbolInfo = new JSONObject(symbols.get(i).toString());
             symbol = (String) symbolInfo.get("symbol");
             isMarginTradingAllowed = (boolean) symbolInfo.get("isMarginTradingAllowed");
-            if(
-                    !symbolExclus.contains(symbol)
-                            && isMarginTradingAllowed
-                            && filterStringSymbol(symbol)
-            ) {
+            if(!symbolExcludes.contains(symbol)
+                    && isMarginTradingAllowed
+                    && filterStringSymbol(symbol)) {
                 symbolList.add(symbol);
             }
         }
@@ -125,8 +123,8 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
     private boolean filterStringSymbol(String symbol) {
         boolean allow = false;
-        if(symbol.endsWith("USDT")
-                && !symbol.startsWith("USDT")
+        if(symbol.endsWith("USDC")
+                && !symbol.startsWith("USDC")
                 && !symbol.contains("DOWN")
                 && !symbol.contains("BULL")
                 && !symbol.contains("BEAR")
@@ -139,9 +137,8 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
     private List<String> excludedSymbol() {
         List<String> symbolExclus = new ArrayList<>();
-        symbolExclus.add("USDCUSDT");
-        symbolExclus.add("TUSDUSDT");
-        symbolExclus.add("FDUSDUSDT");
+        symbolExclus.add("TUSDUSDC");
+        symbolExclus.add("FDUSDUSDC");
         return symbolExclus;
     }
 

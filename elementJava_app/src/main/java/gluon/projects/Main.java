@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class Main {
 
@@ -22,9 +23,15 @@ public class Main {
         CryptoSymbolService cryptoSymbolService = new CryptoSymbolServiceImpl();
         List<String> symbols = cryptoSymbolService.getExistListSymbol();
         List<BinanceWebsocketService> binanceWebsocketServices = new ArrayList<>();
+
+        Random rand = new Random();
+        int randomInt = rand.nextInt(symbols.size());
         for(String symbol: symbols) {
-            binanceWebsocketServices.add(new BinanceWebsocketServiceImpl(symbol));
-            binanceWebsocketServices.get(binanceWebsocketServices.size()-1).launchExchangeData();
+            if(symbol.equals(symbols.get(randomInt))) {
+                binanceWebsocketServices.add(new BinanceWebsocketServiceImpl(symbol));
+                binanceWebsocketServices.get(binanceWebsocketServices.size()-1).launchExchangeData();
+            }
+
         }
     }
 

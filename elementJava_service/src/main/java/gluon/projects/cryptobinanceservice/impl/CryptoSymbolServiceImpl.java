@@ -50,6 +50,7 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         String symbolHistorique;
         JSONArray symbolHistoriqueArray;
         for(String symbol: this.getBinanceApiSymbolList()) {
+            logger.info(symbol);
             url = String.format("%s/klines?symbol=%s&interval=%s&startTime=%d&endTime=%d",
                     this.apiBinanceUrl, symbol, interval, startTime, endTime);
             symbolHistorique = Utils.sendRequestWithCompleteUrl(url);
@@ -112,6 +113,7 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
             symbol = (String) symbolInfo.get("symbol");
             isMarginTradingAllowed = (boolean) symbolInfo.get("isMarginTradingAllowed");
             if(!symbolExcludes.contains(symbol)
+                    && isMarginTradingAllowed
                     && filterStringSymbol(symbol)) {
                 symbolList.add(symbol);
             }

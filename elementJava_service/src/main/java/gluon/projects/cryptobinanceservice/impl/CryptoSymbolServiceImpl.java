@@ -18,7 +18,7 @@ import java.util.*;
 
 public class CryptoSymbolServiceImpl implements CryptoSymbolService {
 
-    private static Logger logger = LoggerFactory.getLogger(CryptoSymbolServiceImpl.class);
+    private static final Logger logger = LoggerFactory.getLogger(CryptoSymbolServiceImpl.class);
 
     private final String apiBinanceUrl;
 
@@ -30,30 +30,35 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         this.listSymbolFile = properties.getProperty("listsymbolfile");
     }
 
-    @Override
-    public List<String> getNewListSymbol() {
-        this.createFileContainListSymbol();
-        List<String> symbolList = new ArrayList<>();
+    private String urlCompletion(String symbol,int yearLimit) {
         String interval = "1M";
-
-        int yearLimit = 1;
-        int numberOfMonth = yearLimit * 12;
-        float priceThreshold = 0.05f;
-
         long endTime = System.currentTimeMillis();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date(endTime));
         calendar.add(Calendar.YEAR, -yearLimit);
         long startTime = calendar.getTimeInMillis();
 
+        return String.format("/klines?symbol=%s&interval=%s&startTime=%d&endTime=%d",
+                symbol, interval, startTime, endTime);
+    }
+
+    @Override
+    public List<String> getNewListSymbol() {
+        this.createFileContainListSymbol();
+
+        List<String> symbolList = new ArrayList<>();
+        float priceThreshold = 0.05f;
+        int yearLimit = 1;
+        int numberOfMonth = yearLimit * 12;
+
         String url;
-        String symbolHistorique;
+        String symbolHistoricalData;
         JSONArray symbolHistoriqueArray;
         for(String symbol: this.getBinanceApiSymbolList()) {
-            url = String.format("%s/klines?symbol=%s&interval=%s&startTime=%d&endTime=%d",
-                    this.apiBinanceUrl, symbol, interval, startTime, endTime);
-            symbolHistorique = Utils.sendRequestWithCompleteUrl(url);
-            symbolHistoriqueArray = new JSONArray(symbolHistorique);
+            url = String.format("%s%s",
+                    this.apiBinanceUrl, this.urlCompletion(symbol, yearLimit));
+            symbolHistoricalData = Utils.sendRequestWithCompleteUrl(url);
+            symbolHistoriqueArray = new JSONArray(symbolHistoricalData);
 
             JSONArray dataElement;
             float allowedPrice;

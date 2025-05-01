@@ -33,8 +33,6 @@ public class WebSocketExchange extends WebSocketClient {
         JSONObject exchangeResponseData = new JSONObject(stringResponse);
         String dataResponseType = (String) exchangeResponseData.get("stream");
 
-        logger.info("RESPONSE DATA: {}", stringResponse);
-
         if(dataResponseType.contains("trade")) {
             this.orderFlowDataProcessService.process((JSONObject) exchangeResponseData.get("data"));
         }

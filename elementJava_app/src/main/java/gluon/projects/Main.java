@@ -17,7 +17,7 @@ public class Main {
 
     public static void cryptoAnalysis() {
         CryptoSymbolService cryptoSymbolService = new CryptoSymbolServiceImpl();
-        List<String> symbols = cryptoSymbolService.getExistListSymbol();
+        List<String> symbols = cryptoSymbolService.getNewListSymbol();
         symbols.forEach((String symbol) -> logger.info("----- {}", symbol));
     }
 

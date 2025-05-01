@@ -50,11 +50,12 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         String symbolHistorique;
         JSONArray symbolHistoriqueArray;
         for(String symbol: this.getBinanceApiSymbolList()) {
-            logger.info(symbol);
             url = String.format("%s/klines?symbol=%s&interval=%s&startTime=%d&endTime=%d",
                     this.apiBinanceUrl, symbol, interval, startTime, endTime);
             symbolHistorique = Utils.sendRequestWithCompleteUrl(url);
             symbolHistoriqueArray = new JSONArray(symbolHistorique);
+
+            logger.info(symbolHistorique);
 
             JSONArray dataElement;
             float allowedPrice;

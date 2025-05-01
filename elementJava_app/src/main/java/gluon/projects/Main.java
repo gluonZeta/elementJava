@@ -19,7 +19,7 @@ public class Main {
 
     public static void cryptoAnalysis() {
         CryptoSymbolService cryptoSymbolService = new CryptoSymbolServiceImpl();
-        List<String> symbols = cryptoSymbolService.getNewListSymbol();
+        List<String> symbols = cryptoSymbolService.getExistListSymbol();
         BinanceWebsocketService binanceWebsocketService;
         for(String symbol: symbols) {
             binanceWebsocketService = new BinanceWebsocketServiceImpl(symbol);

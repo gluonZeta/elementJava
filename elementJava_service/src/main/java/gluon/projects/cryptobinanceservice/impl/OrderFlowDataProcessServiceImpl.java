@@ -10,9 +10,17 @@ public class OrderFlowDataProcessServiceImpl implements BinanceDataProcessServic
 
     private Logger logger = LoggerFactory.getLogger(OrderFlowDataProcessServiceImpl.class);
 
+    private String symbol;
+
+    public OrderFlowDataProcessServiceImpl() {}
+
+    public OrderFlowDataProcessServiceImpl(String symbol) {
+        this.symbol = symbol;
+    }
+
     @Override
     public void process(JSONObject tradeDataValues) {
-        OrderFlowData orderFlowData = new OrderFlowData();
+        OrderFlowData orderFlowData = new OrderFlowData(this.symbol);
         orderFlowData.fillOrderFlowData(tradeDataValues);
         logger.info(orderFlowData.toString());
     }

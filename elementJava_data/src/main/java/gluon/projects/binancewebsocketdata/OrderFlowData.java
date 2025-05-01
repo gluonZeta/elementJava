@@ -11,6 +11,8 @@ import java.util.Date;
 @Setter
 public class OrderFlowData {
 
+    private String symbol;
+
     private boolean isSellerAttack;
 
     private float quantity;
@@ -18,6 +20,12 @@ public class OrderFlowData {
     private float price;
 
     private Date tradingTime;
+
+    public OrderFlowData() {}
+
+    public OrderFlowData(String symbol) {
+        this.symbol = symbol;
+    }
 
     public float getTotal() {
         return quantity * price;
@@ -35,13 +43,15 @@ public class OrderFlowData {
     public String toString() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(tradingTime != null) {
-            return this.isSellerAttack + ";" +
+            return this.symbol + ";" +
+                    this.isSellerAttack + ";" +
                     this.quantity + ";" +
                     this.price + ";" +
                     this.getTotal() + ";" +
                     sdf.format(this.tradingTime);
         } else {
-            return this.isSellerAttack + ";" +
+            return this.symbol + ";" +
+                    this.isSellerAttack + ";" +
                     this.quantity + ";" +
                     this.price + ";" +
                     this.getTotal() + ";";

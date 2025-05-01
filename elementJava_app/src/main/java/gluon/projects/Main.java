@@ -7,6 +7,7 @@ import gluon.projects.cryptobinanceservice.impl.CryptoSymbolServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -20,10 +21,10 @@ public class Main {
     public static void cryptoAnalysis() {
         CryptoSymbolService cryptoSymbolService = new CryptoSymbolServiceImpl();
         List<String> symbols = cryptoSymbolService.getExistListSymbol();
-        BinanceWebsocketService binanceWebsocketService;
+        List<BinanceWebsocketService> binanceWebsocketServices = new ArrayList<>();
         for(String symbol: symbols) {
-            binanceWebsocketService = new BinanceWebsocketServiceImpl(symbol);
-            binanceWebsocketService.launchExchangeData();
+            binanceWebsocketServices.add(new BinanceWebsocketServiceImpl(symbol));
+            binanceWebsocketServices.get(binanceWebsocketServices.size()-1).launchExchangeData();
         }
     }
 

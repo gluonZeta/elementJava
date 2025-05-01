@@ -12,7 +12,10 @@ public class Main {
     private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
+        cryptoAnalysis();
+    }
 
+    public static void cryptoAnalysis() {
         CryptoSymbolService cryptoSymbolService = new CryptoSymbolServiceImpl();
         List<String> symbols = cryptoSymbolService.getExistListSymbol();
         symbols.forEach((String symbol) -> logger.info("----- {}", symbol));

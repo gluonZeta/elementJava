@@ -111,9 +111,7 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
             symbolInfo = new JSONObject(symbols.get(i).toString());
             symbol = (String) symbolInfo.get("symbol");
             isMarginTradingAllowed = (boolean) symbolInfo.get("isMarginTradingAllowed");
-            if(!symbolExcludes.contains(symbol)
-                    && isMarginTradingAllowed
-                    && filterStringSymbol(symbol)) {
+            if(isMarginTradingAllowed) {
                 symbolList.add(symbol);
             }
         }

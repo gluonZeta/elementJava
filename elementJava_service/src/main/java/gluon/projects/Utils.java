@@ -26,9 +26,8 @@ public class Utils {
 
         try {
             httpResponse = httpClient.send(httpRequest, HttpResponse.BodyHandlers.ofString());
-        } catch (IOException e) {
-            throw new ElementProjectException(e);
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
+            Thread.currentThread().interrupt();
             throw new ElementProjectException(e);
         }
         return httpResponse.body();

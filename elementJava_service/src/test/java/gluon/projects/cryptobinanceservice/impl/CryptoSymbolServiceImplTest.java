@@ -33,7 +33,7 @@ class CryptoSymbolServiceImplTest {
         symbols.stream().forEach(System.out::println);
         Assertions.assertNotNull(symbols);
         Assertions.assertTrue(symbols.size() > 100);
-        
+
          */
     }
 

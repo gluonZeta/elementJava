@@ -42,6 +42,23 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
                 symbol, interval, startTime, endTime);
     }
 
+    private void writeSymbolInFile(String symbol) {
+        FileWriter writer = null;
+        try {
+            writer = new FileWriter(this.listSymbolFile, true);
+        } catch (IOException e) {
+            throw new ElementProjectException(e);
+        }
+        BufferedWriter buffer = new BufferedWriter(writer);
+        try {
+            buffer.write(symbol);
+            buffer.newLine();
+            buffer.close();
+        } catch (IOException e) {
+            throw new ElementProjectException(e);
+        }
+    }
+
     @Override
     public List<String> getNewListSymbol() {
         this.createFileContainListSymbol();
@@ -51,40 +68,28 @@ public class CryptoSymbolServiceImpl implements CryptoSymbolService {
         int yearLimit = 1;
         int numberOfMonth = yearLimit * 12;
 
-        String url;
+        String urlHistoricalData;
         String symbolHistoricalData;
-        JSONArray symbolHistoriqueArray;
-        JSONArray dataElement;
-        float allowedPrice;
+        JSONArray symbolHistoricalDataArray;
+        JSONArray historicalDataElement;
+        float closePrice;
 
         for(String symbol: this.getBinanceApiSymbolList()) {
-            url = String.format("%s%s",
-                    this.apiBinanceUrl, this.urlCompletion(symbol, yearLimit));
-            symbolHistoricalData = Utils.sendRequestWithCompleteUrl(url);
-            symbolHistoriqueArray = new JSONArray(symbolHistoricalData);
+            urlHistoricalData = String.format("%s%s",
+                    this.apiBinanceUrl,
+                    this.urlCompletion(symbol, yearLimit)
+            );
+            symbolHistoricalData = Utils.sendRequestWithCompleteUrl(urlHistoricalData);
+            symbolHistoricalDataArray = new JSONArray(symbolHistoricalData);
 
-            if(symbolHistoriqueArray.length() >= (numberOfMonth-1)) {
-                dataElement = (JSONArray) symbolHistoriqueArray.get(symbolHistoriqueArray.length()-1);
-                allowedPrice = Float.parseFloat((String) dataElement.get(4));
+            if(symbolHistoricalDataArray.length() >= (numberOfMonth-1)) {
+                historicalDataElement = (JSONArray) symbolHistoricalDataArray.get(symbolHistoricalDataArray.length()-1);
+                closePrice = Float.parseFloat((String) historicalDataElement.get(4));
 
-                if(allowedPrice > priceThreshold) {
+                if(closePrice > priceThreshold) {
                     symbolList.add(symbol);
-                    logger.info("{} -- {}", symbol, allowedPrice);
-
-                    FileWriter writer = null;
-                    try {
-                        writer = new FileWriter(this.listSymbolFile, true);
-                    } catch (IOException e) {
-                        throw new ElementProjectException(e);
-                    }
-                    BufferedWriter buffer = new BufferedWriter(writer);
-                    try {
-                        buffer.write(symbol);
-                        buffer.newLine();
-                        buffer.close();
-                    } catch (IOException e) {
-                        throw new ElementProjectException(e);
-                    }
+                    logger.info("{} -- {}", symbol, closePrice);
+                    this.writeSymbolInFile(symbol);
                 }
             }
         }

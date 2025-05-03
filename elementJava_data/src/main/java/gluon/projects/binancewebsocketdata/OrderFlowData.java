@@ -13,7 +13,7 @@ public class OrderFlowData {
 
     private String symbol;
 
-    private boolean isSellerAttack;
+    private boolean isBuyerMarketMaker;
 
     private float quantity;
 
@@ -32,7 +32,7 @@ public class OrderFlowData {
     }
 
     public void fillOrderFlowData(JSONObject orderFlowBinanceData) {
-        this.isSellerAttack = (boolean) orderFlowBinanceData.get("m");
+        this.isBuyerMarketMaker = (boolean) orderFlowBinanceData.get("m");
         this.quantity = Float.parseFloat((String) orderFlowBinanceData.get("q"));
         this.price = Float.parseFloat((String) orderFlowBinanceData.get("p"));
         long tradingTimeLong = (long) orderFlowBinanceData.get("E");
@@ -44,14 +44,14 @@ public class OrderFlowData {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         if(tradingTime != null) {
             return this.symbol + ";" +
-                    this.isSellerAttack + ";" +
+                    this.isBuyerMarketMaker + ";" +
                     this.quantity + ";" +
                     this.price + ";" +
                     this.getTotal() + ";" +
                     sdf.format(this.tradingTime);
         } else {
             return this.symbol + ";" +
-                    this.isSellerAttack + ";" +
+                    this.isBuyerMarketMaker + ";" +
                     this.quantity + ";" +
                     this.price + ";" +
                     this.getTotal() + ";";

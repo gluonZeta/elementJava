@@ -7,26 +7,21 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>elementJava_service</artifactId>
+  <artifactId>elementJava_repository</artifactId>
   <version>1.0-SNAPSHOT</version>
 
-  <name>elementJava_service</name>
+  <name>elementJava_repository</name>
+
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
-
     <dependency>
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
       <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <artifactId>elementJava_data</artifactId>
-      <groupId>gluon.projects</groupId>
     </dependency>
 
     <dependency>
@@ -47,25 +42,9 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-core</artifactId>
     </dependency>
-
-    <dependency>
-      <groupId>org.json</groupId>
-      <artifactId>json</artifactId>
-      <version>20250107</version>
-    </dependency>
-
-    <dependency>
-      <groupId>commons-io</groupId>
-      <artifactId>commons-io</artifactId>
-      <version>2.19.0</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.java-websocket</groupId>
-      <artifactId>Java-WebSocket</artifactId>
-      <version>1.6.0</version>
-    </dependency>
-
   </dependencies>
 
+  <build>
+
+  </build>
 </project>

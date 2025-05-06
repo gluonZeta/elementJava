@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-
   <groupId>gluon.projects</groupId>
   <artifactId>elementJava</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
   <name>elementJava</name>
-
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
@@ -16,25 +14,20 @@
     <slf4j.version>2.0.16</slf4j.version>
     <logback.version>1.5.13</logback.version>
   </properties>
-
   <dependencyManagement>
     <dependencies>
-
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
         <version>1.18.36</version>
         <scope>compile</scope>
       </dependency>
-
       <dependency>
         <groupId>org.junit.jupiter</groupId>
         <artifactId>junit-jupiter</artifactId>
         <version>5.12.0</version>
         <scope>test</scope>
       </dependency>
-
-
       <dependency>
         <artifactId>elementJava_service</artifactId>
         <groupId>gluon.projects</groupId>
@@ -45,8 +38,6 @@
         <groupId>gluon.projects</groupId>
         <version>1.0-SNAPSHOT</version>
       </dependency>
-
-
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
@@ -62,19 +53,16 @@
         <artifactId>logback-core</artifactId>
         <version>${logback.version}</version>
       </dependency>
-
     </dependencies>
   </dependencyManagement>
-
   <modules>
     <module>elementJava_app</module>
     <module>elementJava_service</module>
     <module>elementJava_data</module>
+    <module>elementJava_repository</module>
   </modules>
-
   <build>
     <plugins>
-
       <plugin>
         <groupId>org.jacoco</groupId>
         <artifactId>jacoco-maven-plugin</artifactId>
@@ -93,10 +81,8 @@
               <goal>report</goal>
             </goals>
           </execution>
-
         </executions>
       </plugin>
-
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
@@ -104,5 +90,4 @@
       </plugin>
     </plugins>
   </build>
-
 </project>

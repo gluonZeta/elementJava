@@ -1,0 +1,24 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+    <session-factory>
+        <!-- JDBC Database connection settings -->
+        <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+        <property name="hibernate.connection.url">jdbc:postgresql://192.168.1.37:5455/cryptodatabase</property>
+        <property name="hibernate.connection.username">gluon</property>
+        <property name="hibernate.connection.password">viva342</property>
+
+        <!-- Other Hibernate properties -->
+        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- first time it is create and then onwards update -->
+        <property name="hbm2ddl.auto">create</property>
+
+        <!-- Entities -->
+        <mapping class="gluon.projects.entity.OrderFlowEntity"/>
+    </session-factory>
+</hibernate-configuration>
